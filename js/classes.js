@@ -281,7 +281,7 @@ class Bomb {
             ctx.globalAlpha = 0.8;
             setTimeout(() => {
                 ctx.globalAlpha = 1;
-            }, 5000);
+            }, 10000);
             
             // Outer circle
             ctx.beginPath();
