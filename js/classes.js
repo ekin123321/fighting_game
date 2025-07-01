@@ -320,8 +320,9 @@ class AttackSphere {
         }
         
         // Reset global alpha to prevent affecting other drawings
-        setInterval(() => {
+       let A = setInterval(() => {
                           ctx.globalAlpha = 1;
+                          clearInterval(A);
                       }, 5000);
         ctx.restore();
         
