@@ -316,7 +316,6 @@ class Bomb {
             ctx.beginPath();
             ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
             ctx.stroke();
-            ctx.globalAlpha = 1;
         }
          ctx.globalAlpha = 1;
         ctx.restore();
