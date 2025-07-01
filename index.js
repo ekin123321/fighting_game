@@ -371,10 +371,7 @@ window.addEventListener("keydown", function (e) {
                         if (player.health > 0) {
                             document.getElementById("playerHealth").style.width = player.health + "%"
                         } else { document.getElementById("playerHealth").style.width = 0 + "%" }
-                             setTimeout(() => {
-                                ctx.globalAlpha = 1;
-                        }, 2000);
-                    
+                          
                     }
 
                     artma = true;
@@ -420,7 +417,7 @@ if (enemy.lastkey != "*") {
                 break;
             case "1":
                 if (!enemy.dead) {
-                    bombx = new AttackSphere({})
+                    bombx = new Bomb({})
                 }
 
 
