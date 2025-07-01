@@ -320,8 +320,9 @@ class AttackSphere {
         }
         
         // Reset global alpha to prevent affecting other drawings
-        ctx.globalAlpha = 1;
-        
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.globalAlpha = 1;
+ctx.globalCompositeOperation = 'source-over';
         ctx.restore();
     }
 }
