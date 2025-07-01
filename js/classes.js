@@ -322,7 +322,7 @@ class AttackSphere {
         // Reset global alpha to prevent affecting other drawings
         setInterval(() => {
                           ctx.globalAlpha = 1;
-                      }, 500);
+                      }, 5000);
         ctx.restore();
         
     }
