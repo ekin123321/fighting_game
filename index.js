@@ -417,7 +417,7 @@ if (enemy.lastkey != "*") {
                 break;
             case "1":
                 if (!enemy.dead) {
-                    bombx = new Bomb({})
+                    bombx = new AttackSphere({})
                 }
 
 
