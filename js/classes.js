@@ -87,33 +87,26 @@ class Fighter extends Sprite {
             this.sprites[sprite].image.src = this.sprites[sprite].imageSrc
         }
     }
-    power() {
-
-        if (protecting) {
-
-            if (ilkzaman) {
-                ctx.strokeStyle = "white"
-            } else {
-                ctx.strokeStyle = this.color2
-            }
-
-            ctx.beginPath();
-            ctx.arc(player.pos.x + player.width / 2, player.pos.y + player.height / 2, protectr, 0, 2 * Math.PI);
-            ctx.stroke();
-
-
-
-        }
-        if (hasar) {
-            ctx.strokeStyle = "white"
-            ctx.beginPath();
-            ctx.arc(enemy.pos.x + enemy.width / 2, enemy.pos.y + enemy.height / 2, buyuyenr, 0, 2 * Math.PI);
-            ctx.stroke();
-        }
-
-
-
+  power() {
+    // Initialize attack sphere if not exists
+    if (!this.attackSphere) {
+        this.attackSphere = new AttackSphere(this);
     }
+    
+    // Update attack sphere
+    this.attackSphere.update();
+    
+    // Draw shield for player
+    if (protecting && this === player) {
+        let color = ilkzaman ? 'white' : this.color2;
+        this.attackSphere.draw(ctx, color, protectr, 'shield');
+    }
+    
+    // Draw charge effect for enemy
+    if (hasar && this === enemy) {
+        this.attackSphere.draw(ctx, 'white', buyuyenr, 'charge');
+    }
+}
 
     update() {
         this.draw()
@@ -255,5 +248,77 @@ class Bomb {
         this.y += 0.1
 
 
+    }
+}
+
+ class AttackSphere {
+    constructor(owner) {
+        this.owner = owner;
+        this.x = owner.pos.x + owner.width / 2;
+        this.y = owner.pos.y + owner.height / 2;
+        this.radius = 150;
+        this.pulseTime = 0;
+        this.active = false;
+        this.opacity = 1;
+    }
+    
+    update() {
+        // Follow owner position
+        this.x = this.owner.pos.x + this.owner.width / 2;
+        this.y = this.owner.pos.y + this.owner.height / 2;
+        
+        // Subtle pulse effect
+        this.pulseTime += 0.05;
+    }
+    
+    draw(ctx, color = 'white', radius = 150, mode = 'normal') {
+        ctx.save();
+        
+        if (mode === 'shield') {
+            // Shield mode - simple double circle
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = 0.8;
+            
+            // Outer circle
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Inner circle with slight pulse
+            const pulse = Math.sin(this.pulseTime) * 5;
+            ctx.globalAlpha = 0.5;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius - 10 + pulse, 0, Math.PI * 2);
+            ctx.stroke();
+            
+        } else if (mode === 'charge') {
+            // Charge mode - growing circle with increasing opacity
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            
+            // Main circle
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            // Pulsing inner circle
+            const pulse = Math.sin(this.pulseTime * 2) * 10;
+            ctx.globalAlpha = 0.3;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius - 20 + pulse, 0, Math.PI * 2);
+            ctx.fill();
+            
+        } else {
+            // Normal mode - clean single circle
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+        
+        ctx.restore();
     }
 }
