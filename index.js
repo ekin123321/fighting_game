@@ -371,7 +371,7 @@ window.addEventListener("keydown", function (e) {
                         if (player.health > 0) {
                             document.getElementById("playerHealth").style.width = player.health + "%"
                         } else { document.getElementById("playerHealth").style.width = 0 + "%" }
-
+                         ctx.globalAlpha = 1;
                     }
 
                     artma = true;
