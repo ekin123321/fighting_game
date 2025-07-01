@@ -279,10 +279,6 @@ class Bomb {
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
             ctx.globalAlpha = 0.8;
-          setTimeout(() => {          
-           ctx.globalAlpha = 1
-            }, 10000);
-            
             // Outer circle
             ctx.beginPath();
             ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
@@ -320,6 +316,7 @@ class Bomb {
             ctx.beginPath();
             ctx.arc(this.x, this.y, radius, 0, Math.PI * 2);
             ctx.stroke();
+            ctx.globalAlpha = 1;
         }
         
         ctx.restore();
