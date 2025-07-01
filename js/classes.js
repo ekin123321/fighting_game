@@ -279,8 +279,16 @@ class Bomb {
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
             ctx.globalAlpha = 0.8;
-            setTimeout(() => {
-                ctx.globalAlpha = 1;
+          setTimeout(() => {
+              
+              setInterval(() => {
+                  if (c) {
+                     ctx.globalAlpha = ctx.globalAlpha+0.01
+                    if (ctx.globalAlpha == 1) {
+                        c = false
+                    }
+                  }                  
+                }, 100);               
             }, 10000);
             
             // Outer circle
