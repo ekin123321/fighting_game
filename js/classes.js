@@ -318,7 +318,7 @@ class Bomb {
             ctx.stroke();
             ctx.globalAlpha = 1;
         }
-        
+         ctx.globalAlpha = 1;
         ctx.restore();
     }
 }
